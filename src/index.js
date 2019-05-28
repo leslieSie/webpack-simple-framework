@@ -1,5 +1,5 @@
-var test = 2; 
+var test = 2;
 
-function demo(){
-    console.log('demo')
+function demo() {
+    console.log('demo');
 }
