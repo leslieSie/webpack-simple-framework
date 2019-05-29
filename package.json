@@ -10,8 +10,13 @@
         "dev": "webpack-dev-server --progress --config config/webpack.dev.config.js"
     },
     "dependencies": {
+        "babel-core": "^6.26.3",
+        "babel-polyfill": "^6.26.0",
+        "babel-preset-stage-2": "^6.24.1",
+        "babel-register": "^6.26.0",
         "clean-webpack-plugin": "^2.0.2",
         "html-loader": "^0.5.5",
+        "vue": "^2.6.10",
         "webpack": "^4.32.2",
         "webpack-dev-server": "3.4.1"
     },

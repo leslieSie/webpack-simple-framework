@@ -22,7 +22,7 @@ module.exports = webpackMerge(baseConfig, {
         new htmlWebpackPlugin({
             title: 'test title',
             filename: 'index.html',
-            template: 'view/index.html'
+            template: 'index.html'
         })
     ],
     devServer: {
