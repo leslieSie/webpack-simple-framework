@@ -1,9 +1,7 @@
 let { resolve } = require('./utils.js');
 
 module.exports = {
-    entry: {
-        src: resolve('../src/index.js')
-    },
+    entry: ['babel-polyfill', resolve('../src/index.js')],
     output: {
         path: resolve('../dist'),
         filename: '[name].[hash].js'
