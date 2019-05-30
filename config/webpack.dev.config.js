@@ -16,13 +16,16 @@ module.exports = webpackMerge(baseConfig, {
                     loader: 'html-loader'
                 }
             },
-          /*   {
+            {
                 test: /\.css$/,
                 exclude: /node_modules/,
-                user:{
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.vue$/,
+                exclude: /node_modules/,
 
-                }
-            } */
+            }
         ]
     },
     plugins: [
