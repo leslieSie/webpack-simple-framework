@@ -10,12 +10,20 @@ module.exports = webpackMerge(baseConfig, {
     mode: 'development',
     module: {
         rules: [{
-            test: /\.html$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'html-loader'
-            }
-        }]
+                test: /\.html$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'html-loader'
+                }
+            },
+          /*   {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                user:{
+
+                }
+            } */
+        ]
     },
     plugins: [
         new CleanWebpackPlugin(),

@@ -1,5 +1,8 @@
-var test = 2;
+import Vue from 'vue';
 
-function demo() {
-    console.log('demo');
-}
+new Vue({
+    el: '#root',
+    data: {
+        message: 'Hello Vue'
+    }
+})
