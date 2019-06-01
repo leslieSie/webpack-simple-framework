@@ -1,5 +1,7 @@
 <template>
-  <div>{{ data }}</div>
+  <div>
+    <Tag>标签一</Tag>
+  </div>
 </template>
 <script>
 export default {

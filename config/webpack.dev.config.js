@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const WebpackDevServer = require("webpack-dev-server");
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const vueLoaderPlugin = require('vue-loader/lib/plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = webpackMerge(baseConfig, {
     devtool: 'true',
@@ -29,13 +30,30 @@ module.exports = webpackMerge(baseConfig, {
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
-                use: ['vue-style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader'],
+                include: [
+                    /src/,
+                    path.join(__dirname, '../', 'node_modules/iview/dist/styles/iview.css')
+                ]
             },
             {
                 test: /\.vue$/,
                 exclude: /node_modules/,
                 use: 'vue-loader'
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000
+                }
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000
+                }
             },
             {
                 test: /\.less$/,

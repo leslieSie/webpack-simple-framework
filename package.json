@@ -4,7 +4,7 @@
   "description": "the framework is use to make common JS framework",
   "main": "index.js",
   "repository": "https://github.com/leslieSie/webpack-simple-framework.git",
-  "author": "leslieSie <xiecy@scet.com.cn>",
+  "author": "leslieSie <18826220848@163.com>",
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --progress --config config/webpack.dev.config.js"
@@ -30,7 +30,10 @@
     "webpack-dev-server": "3.4.1"
   },
   "devDependencies": {
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "url-loader": "^1.1.2",
     "vue-loader": "^15.7.0",
     "webpack-cli": "^3.3.2",
     "webpack-merge": "4.0.0"
