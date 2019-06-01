@@ -1,7 +1,7 @@
 import utils from './utils.js';
 
-function alertTest() {
-    utils.al('这是一个测试')
+function alertTest(val) {
+    utils.al(val);
 }
 
 module.exports = {

@@ -11,7 +11,7 @@ module.exports = {
         chunkFilename: '[name].[hash].bundle.js'
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json', '.html'],
+        extensions: ['.js', '.vue', '.json', '.es6'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
