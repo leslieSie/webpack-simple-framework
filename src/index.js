@@ -1,14 +1,9 @@
-import Vue from 'vue';
-import App from './App.vue';
-import iview from 'iview';
-import 'iview/dist/styles/iview.css';
+import utils from './utils.js';
 
-Vue.use(iview);
+function alertTest() {
+    utils.al('这是一个测试')
+}
 
-new Vue({
-    el: '#root',
-    render: (h) => h(App),
-    components: {
-        App
-    }
-})
+module.exports = {
+    alertTest
+}

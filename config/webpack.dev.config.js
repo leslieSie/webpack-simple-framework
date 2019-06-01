@@ -2,7 +2,6 @@ let webpackMerge = require('webpack-merge');
 let baseConfig = require('./webpack.base.config.js');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-// const WebpackDevServer = require("webpack-dev-server");
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const vueLoaderPlugin = require('vue-loader/lib/plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -33,6 +32,7 @@ module.exports = webpackMerge(baseConfig, {
                 use: ['style-loader', 'css-loader'],
                 include: [
                     /src/,
+                    /view/,
                     path.join(__dirname, '../', 'node_modules/iview/dist/styles/iview.css')
                 ]
             },
@@ -77,10 +77,10 @@ module.exports = webpackMerge(baseConfig, {
         })
     ],
     devServer: {
-        contentBase: path.resolve(__dirname, "../dist"),
+        contentBase: path.resolve(__dirname, "dist"),
         host: 'localhost',
         port: 8888,
-        open: true,
+        open: false,
         compress: true,
     }
 });
