@@ -4,7 +4,6 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const vueLoaderPlugin = require('vue-loader/lib/plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = webpackMerge(baseConfig, {
     devtool: 'true',
@@ -66,6 +65,17 @@ module.exports = webpackMerge(baseConfig, {
                 }, 'less-loader']
             }
         ]
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: 'vendor',
+                    chunks: 'initial',
+                    minChunks: 2
+                }
+            }
+        }
     },
     plugins: [
         new vueLoaderPlugin(),
