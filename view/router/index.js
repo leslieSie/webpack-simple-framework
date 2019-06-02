@@ -13,4 +13,6 @@ const routes = [{
     }
 ];
 
-module.exports = new VueRouter({ routes });
+module.exports = new VueRouter({
+    routes
+});
