@@ -1,0 +1,23 @@
+{
+  "editor.renderIndentGuides": false,
+  //编辑器失去焦点时自动保存更新后的文件
+  "files.autoSave": "onFocusChange",
+  "git.confirmSync": false,
+  // "window.title": "${activeEditorLong}${separator}${rootName}",
+  "window.zoomLevel": 0,
+  //为了符合eslint的两个空格间隔原则
+  "editor.tabSize": 2,
+  // 文件头部注释
+  //关闭编辑器默认代码检查,为了不跟eslint配置冲突
+  "editor.formatOnSave": false,
+  "javascript.format.enable": false,
+  //eslint 格式化插件，保存时应用eslint规则自动格式化后保存
+  "eslint.autoFixOnSave": true,
+  "prettier.eslintIntegration": true,
+  // 去掉代码结尾分号
+  "prettier.semi": false,
+  "editor.fontFamily": "Microsoft YaHei，Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontWeight": "bold",
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "explorer.confirmDragAndDrop": false
+}

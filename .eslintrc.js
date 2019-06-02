@@ -1,6 +1,6 @@
 module.exports = {
     parserOptions: {
-        "parser": "babel-eslint",
+        parser: "babel-eslint",
         ecmaVersion: 6,
         ecmaFeatures: {
             experimentalObjectRestSpread: true,
@@ -14,7 +14,8 @@ module.exports = {
         node: true
     },
 
-    plugins: ['vue'],
+    // extends: ["vue", "standard"],
+    plugins: ['import', 'vue'],
 
     globals: {
         document: false,
@@ -23,6 +24,7 @@ module.exports = {
     },
 
     rules: {
+        'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
         'accessor-pairs': 2,
         'arrow-spacing': [2, { 'before': true, 'after': true }],
         'block-spacing': [2, 'always'],
