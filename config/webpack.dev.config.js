@@ -16,12 +16,12 @@ module.exports = webpackMerge(baseConfig, {
                     loader: 'html-loader'
                 }
             },
-            {
+          /*   {
                 test: /\.(vue|js)$/,
                 loader: 'eslint-loader',
                 exclude: /node_modules/,
                 enforce: 'pre'
-            },
+            }, */
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
