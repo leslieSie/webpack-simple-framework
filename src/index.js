@@ -1,9 +1,9 @@
-import utils from './utils.js'
+import utils from './utils.js';
 
 function alertTest (val) {
-  utils.al(val)
+  utils.al(val);
 }
 
 module.exports = {
   alertTest
-}
+};
