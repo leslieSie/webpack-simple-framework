@@ -7,10 +7,10 @@ import 'iview/dist/styles/iview.css';
 Vue.use(iview);
 
 new Vue({
-    el: '#root',
-    router,
-    render: h => h(App),
-    components: {
-        App
-    }
+  el: '#root',
+  router,
+  render: h => h(App),
+  components: {
+    App
+  }
 });
