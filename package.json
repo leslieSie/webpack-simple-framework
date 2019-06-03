@@ -7,7 +7,8 @@
     "author": "leslieSie <2358407968@qq.com>",
     "license": "MIT",
     "scripts": {
-        "dev": "webpack-dev-server --progress --config config/webpack.dev.config.js"
+        "dev": "webpack-dev-server --progress --config config/webpack.dev.config.js",
+        "lint": "eslint --fix --ext .js,.vue view"
     },
     "dependencies": {
         "babel-core": "^6.26.3",
