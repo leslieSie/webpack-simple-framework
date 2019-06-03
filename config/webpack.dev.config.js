@@ -16,12 +16,6 @@ module.exports = webpackMerge(baseConfig, {
                     loader: 'html-loader'
                 }
             },
-          /*   {
-                test: /\.(vue|js)$/,
-                loader: 'eslint-loader',
-                exclude: /node_modules/,
-                enforce: 'pre'
-            }, */
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -46,18 +40,26 @@ module.exports = webpackMerge(baseConfig, {
                 exclude: /node_modules/,
                 use: 'vue-loader'
             },
-            {
-                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 10000
-                }
-            },
+            /*   {
+                  test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                  loader: 'url-loader',
+                  options: {
+                      limit: 1000
+                  }
+              }, */
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000
+                    limit: 1000
+                }
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]',
+                    publicPath: path.join(__dirname, '../', 'public')
                 }
             },
             {

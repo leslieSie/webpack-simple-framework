@@ -1,15 +1,18 @@
 <template>
-  <Button @click="clickAlert">Click Test</Button>
+  <div>
+    <Button @click="clickAlert">Click Test</Button>
+    <img src="by2.jpg">
+  </div>
 </template>
 <script>
-import { alertTest } from '@/index.js';
+import { alertTest } from "@/index.js";
 export default {
-  data () {
+  data() {
     return {};
   },
   methods: {
-    clickAlert () {
-      alertTest('测试!');
+    clickAlert() {
+      alertTest("测试!");
     }
   }
 };
