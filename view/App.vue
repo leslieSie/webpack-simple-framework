@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import { alertTest } from "@/index.js";
+import { alertTest } from '@/index.js';
 export default {
-  data() {
-    return {};
-  }
+    data () {
+        return {};
+    }
 };
 </script>
 
@@ -20,5 +20,3 @@ export default {
   color: white;
 }
 </style>
-
-
