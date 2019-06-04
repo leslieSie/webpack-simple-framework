@@ -8,7 +8,7 @@
     "license": "MIT",
     "scripts": {
         "dev": "webpack-dev-server --progress --config config/webpack.dev.config.js",
-        "prod": "webpack --progress --config config/webpack.prod.config.js",
+        "build": "webpack --config config/webpack.prod.config.js",
         "lint:dev": "eslint --fix --ext .js,.vue view",
         "lint:prod": "eslint --fix --ext .js,.vue src"
     },
