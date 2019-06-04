@@ -3,7 +3,7 @@ let { resolve } = require('./utils.js');
 module.exports = {
     entry: {
         ployfill: 'babel-polyfill',
-        index: resolve('view/index.js')
+        index: resolve('view/index.js'),
     },
     output: {
         path: resolve('dist'),
