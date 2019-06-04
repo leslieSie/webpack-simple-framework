@@ -5,20 +5,20 @@
   </div>
 </template>
 <script>
-import { alertTest } from "@/index.js";
+import { alertTest } from '@/index.js';
 import img from '../public/by2.jpg';
 export default {
-  data() {
+  data () {
     return {
-      image:img
+      image: img
     };
   },
   methods: {
-    clickAlert() {
-      alertTest("测试!");
+    clickAlert () {
+      alertTest('测试!');
     }
-  },
-/*   created(){
+  }
+  /*   created(){
     console.log(img);
   } */
 };
