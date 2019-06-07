@@ -2,9 +2,11 @@
 
 webpack-simple-framework一个基于webpack构建的脚手架工具，用于对JS框架进行打包处理使用，**面向轮子打包使用，非直接构建web应用**。
 
+<br />
 
+<br />
 
-
+<br />
 
 ### webpack-simple-framework与vue-cli的差异：
 
@@ -14,11 +16,9 @@ webpack-simple-framework一个基于webpack构建的脚手架工具，用于对J
 > 4. webpack-simple-framework支持对 eslint 一键自动修复代码编码风格
 > 5. 未来支持vue和react(虽然目前只支持vue) :worried:
 
+<br />
 
-
-
-
-
+<br />
 
 ### 安装运行方法
 
@@ -28,11 +28,11 @@ webpack-simple-framework一个基于webpack构建的脚手架工具，用于对J
 >
 > yarn dev || npm run dev
 
+<br />
 
+<br />
 
-
-
-
+<br />
 
 ### scripts的用法
 
@@ -48,11 +48,11 @@ webpack-simple-framework一个基于webpack构建的脚手架工具，用于对J
 
 **lint:prod**  : 对src目录下面的代码进行风格化修复
 
+<br />
 
+<br />
 
-
-
-
+<br />
 
 ##### 目录结构说明
 
@@ -72,11 +72,11 @@ webpack-simple-framework一个基于webpack构建的脚手架工具，用于对J
 
 **view目录** : 开发模式对应测试代码存放的目录，区别于**src目录**,view目录执行yarn build的情况下，不会对view目录下面的代码进行打包，该目录下面的代码仅用于在开发模式下的调试使用。
 
+<br />
 
+<br />
 
-
-
-
+<br />
 
 ### 扶持作者
 
