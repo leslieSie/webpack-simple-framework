@@ -1,10 +1,10 @@
-## webpack-simple-framework
+# webpack-simple-framework
 
-webpack-simple-framework一个基于webpack构建的脚手架工具，用于对JS框架进行打包处理使用，面向轮子打包使用，非直接构建web应用。
+webpack-simple-framework一个基于webpack构建的脚手架工具，用于对JS框架进行打包处理使用，**面向轮子打包使用，非直接构建web应用**。
 
 
 
-##### webpack-simple-framework与vue-cli的差异：
+### webpack-simple-framework与vue-cli的差异：
 
 > 1. webpack-simple-framework相较于vue-cli比较简单，没有太过复杂的框架配置，方便上手与对脚手架的修改
 > 2. webpack-simple-framework将演示的代码与最后打包出来的代码分离出来，而且vue-cli只针对项目代码，也即是vue-cli开发和生产模式下打包的代码是一样的。
@@ -14,7 +14,7 @@ webpack-simple-framework一个基于webpack构建的脚手架工具，用于对J
 
 
 
-##### 安装运行方法
+### 安装运行方法
 
 > git clone https://github.com/leslieSie/webpack-simple-framework.git
 >
@@ -24,7 +24,7 @@ webpack-simple-framework一个基于webpack构建的脚手架工具，用于对J
 
 
 
-##### scripts的用法
+### scripts的用法
 
 **dev** : 用来开启开发模式，自动运行开发服务器，默认网址：http:localhost:8888
 
@@ -44,6 +44,8 @@ webpack-simple-framework一个基于webpack构建的脚手架工具，用于对J
 
 ![目录文档结图](./public/directory.png)
 
+
+
 **build目录** : 用于存放最终打包发布的文件目录，一般在这个文件目录进行修改，如果安装之后没有build文件的话，执行yarn build就会自动生成产生。
 
 **config目录** : 存放webpack打包配置文件
@@ -58,7 +60,7 @@ webpack-simple-framework一个基于webpack构建的脚手架工具，用于对J
 
 
 
-##### 扶持作者
+### 扶持作者
 
 开源不易，一分钱也是钱，希望得到各位大佬们的支持，你的支持是我前进的动力。
 
