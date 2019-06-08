@@ -1,4 +1,4 @@
-let { resolve } = require('./utils.js');
+let { absPath } = require('./utils.js');
 
 module.exports = {
 
@@ -6,8 +6,9 @@ module.exports = {
         extensions: ['.js', '.vue', '.json', '.es6'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': resolve('src'),
-            '_': resolve('view')
+            '@': absPath('src'),
+            '_': absPath('view'),
+            '_C_': absPath('config')
         }
     }
 

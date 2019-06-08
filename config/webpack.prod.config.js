@@ -1,37 +1,49 @@
 const webpackMerge = require('webpack-merge');
 const path = require('path');
-const fs = require('fs');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const prodConfig = require('./prod.config.js');
 const copyWebpackPlugin = require('copy-webpack-plugin');
-const process = require('process');
+const baseConfig = require('./webpack.base.config.js');
 const {
-    resolve
+    absPath,
+    file_exit,
+    dir_create
 } = require('./utils.js');
 
-let folder_exits = fs.existsSync(path.join(__dirname, '../', 'build'));
-if (!folder_exits) {
-    new Promise((resolve, reject) => {
-        fs.mkdir(path.join(__dirname, '../', 'build'), (err) => {
+let copyFiles = [{
+    from: 'package.json'
+}];
+
+let folder_exits = file_exit(path.join(__dirname, '../', 'build'));
+new Promise((resolve, reject) => {
+    if (!folder_exits) {
+        dir_create(path.join(__dirname, '../', 'build'), (err) => {
             if (err) {
                 console.error(err);
             }
             console.log('新建打包目录');
-            resolve(true);
         });
-    }).then(data => {
-        console.log('then')
-    });
+    }
+    resolve(true);
+}).then(data => {
 
-}
+    console.log('处理生成文件')
+    let isShowSource = prodConfig.showSource || false;
+    if (isShowSource) {
+        copyFiles.push({
+            from: 'src',
+            to: prodConfig.outputSourceDirectory || 'source'
+        });
+    }
+})
 
-module.exports = {
-    entry: [resolve('src/index.js')],
-    devtool: prodConfig.devtool,
+module.exports = webpackMerge(baseConfig, {
+    entry: [absPath(`src/${prodConfig.entryMainFile || 'index'}.js`)],
+    devtool: false,
     mode: 'production',
     output: {
-        path: resolve('build'),
-        filename: `${prodConfig.mainName}.js`,
+        path: absPath('build'),
+        filename: `${prodConfig.outputMainFile || 'index'}.js`,
         libraryExport: 'default',
         libraryTarget: 'commonjs'
     },
@@ -48,6 +60,7 @@ module.exports = {
         }, ]
     },
     plugins: [
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new copyWebpackPlugin(copyFiles)
     ]
-}
+});

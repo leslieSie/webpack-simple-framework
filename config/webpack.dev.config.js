@@ -4,15 +4,15 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const vueLoaderPlugin = require('vue-loader/lib/plugin');
-const { resolve } = require('./utils.js');
+const { absPath } = require('./utils.js');
 
 module.exports = webpackMerge(baseConfig, {
     entry: {
         ployfill: 'babel-polyfill',
-        index: resolve('view/index.js'),
+        index: absPath('view/index.js'),
     },
     output: {
-        path: resolve('dist'),
+        path: absPath('dist'),
         filename: '[name].[hash].js',
         chunkFilename: '[name].[hash].bundle.js'
     },

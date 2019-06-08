@@ -76,7 +76,7 @@ webpack-simple-framework 一个基于 webpack 构建的脚手架工具，用于�
 
 <br />
 
-##### 项目贡献者
+##### 项目其他参与者和贡献者
 
 <a href="https://github.com/fengxianqi" target="_blank">
 

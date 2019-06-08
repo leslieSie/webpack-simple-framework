@@ -2,7 +2,7 @@
     "name": "webpack-simple-framework",
     "version": "0.0.1",
     "description": "the framework is use to make common JS framework",
-    "main": "index.js",
+    "main": "src/main.js",
     "repository": "https://github.com/leslieSie/webpack-simple-framework.git",
     "author": "leslieSie <2358407968@qq.com>",
     "license": "MIT",
