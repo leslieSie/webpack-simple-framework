@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     clickAlert () {
-      debugger;
       utils.alertTest('测试!');
     }
   }

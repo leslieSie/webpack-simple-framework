@@ -76,6 +76,16 @@ webpack-simple-framework 一个基于 webpack 构建的脚手架工具，用于�
 
 <br />
 
+##### 项目贡献者
+
+<img style="width:100px;height:100px;border-radius:50%"  src="https://avatars1.githubusercontent.com/u/15716381?s=460&v=4" />
+
+<br />
+
+<br />
+
+<br />
+
 ### 扶持作者
 
 开源不易，一分钱也是钱，希望得到各位大佬们的支持，你的支持是我前进的动力。
