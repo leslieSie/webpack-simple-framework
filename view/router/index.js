@@ -20,6 +20,10 @@ const routes = [{
   component: (resolve) => require(['../page/build_demo.vue'], resolve)
 },
 {
+  path: '/srcDemo',
+  component: (resolve) => require(['../page/src_demo.vue'], resolve)
+},
+{
   path: '/setting',
   component: (resolve) => require(['../page/setting.vue'], resolve)
 }

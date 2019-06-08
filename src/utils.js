@@ -8,7 +8,7 @@ const demo1 = function (name) {
   alert(2);
 };
 
-module.exports = {
+export default {
   al,
   demo1
 };

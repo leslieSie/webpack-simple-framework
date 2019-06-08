@@ -1,30 +1,31 @@
 {
-  "extends": ["plugin:vue/essential", "standard"],
-  "root": true,
-  "parserOptions": {
-    "parser": "babel-eslint",
-    "ecmaVersion": 6,
-    "sourceType": "module"
-  },
+    "extends": ["plugin:vue/essential", "standard"],
+    "root": true,
+    "parserOptions": {
+        "parser": "babel-eslint",
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
 
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "plugins": ["html", "standard"],
-  "rules": {
-    "space-before-function-paren": ["error", "always"],
-    "indent": ["error", 2, {
-      "SwitchCase": 1
-    }],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "no-console": ["error"],
-    "no-empty": 2,
-    "no-eq-null": 2,
-    "no-new": 0,
-    "no-fallthrough": 0,
-    "no-unreachable": 0,
-    "no-unused-vars": "off"
-  }
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "plugins": ["html", "standard"],
+    "rules": {
+        "space-before-function-paren": ["error", "always"],
+        "indent": ["error", 2, {
+            "SwitchCase": 1
+        }],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "no-console": "warn",
+        "no-empty": 2,
+        "no-eq-null": 2,
+        "no-new": 0,
+        "no-fallthrough": 0,
+        "no-unreachable": 0,
+        "no-unused-vars": "off",
+        "no-debugger": 1
+    }
 }

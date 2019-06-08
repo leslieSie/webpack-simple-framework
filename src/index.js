@@ -4,6 +4,6 @@ function alertTest (val) {
   utils.al(val);
 }
 
-module.exports = {
+export default {
   alertTest
 };

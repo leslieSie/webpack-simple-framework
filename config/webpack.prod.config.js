@@ -24,14 +24,28 @@ if (!folder_exits) {
     });
 
 }
-console.log(process.env.NODE_ENV);
+
 module.exports = {
-    entry: ['babel-polyfill', resolve('src/index.js')],
+    entry: [resolve('src/index.js')],
     devtool: prodConfig.devtool,
     mode: 'production',
     output: {
         path: resolve('build'),
-        filename: `${prodConfig.mainName}.[hash:7].js`
+        filename: `${prodConfig.mainName}.js`,
+        libraryExport: 'default',
+        libraryTarget: 'commonjs'
+    },
+    module: {
+        rules: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+            }]
+        }, ]
     },
     plugins: [
         new CleanWebpackPlugin()
