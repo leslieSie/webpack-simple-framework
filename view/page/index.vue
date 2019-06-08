@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Button @click="clickAlert">Click Test</Button>
-    <img :src="image">
+    <Button type="primary" @click="changePage('ivewDemo')">完成对iview框架的调用</Button>
+    <Button type="primary" @click="changePage('vuexDemo')">使用vuex来构建应用</Button>
+    <Button type="primary" @click="changePage('buildDemo')">打包框架方法调用与其他使用方法</Button>
   </div>
 </template>
 <script>
@@ -14,13 +15,10 @@ export default {
     };
   },
   methods: {
-    clickAlert () {
-      alertTest('测试!');
+    changePage (name) {
+      this.$router.push(name);
     }
   }
-  /*   created(){
-    console.log(img);
-  } */
 };
 </script>
 <style>
