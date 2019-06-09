@@ -1,7 +1,6 @@
 let { absPath } = require('./utils.js');
 
 module.exports = {
-
     resolve: {
         extensions: ['.js', '.vue', '.json', '.es6'],
         alias: {

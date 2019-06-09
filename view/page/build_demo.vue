@@ -22,8 +22,9 @@ export default {
     }
   },
   created () {
-    let fileName = prodConfig.entryMainFile || 'index';
-    utils = require(`../../build/${fileName}.js`);
+    let fileName = prodConfig.outputMainFile || 'index.js';
+    let dir = prodConfig.outputSourceDirectory || 'src';
+    utils = require(`../../build/${dir}/${fileName}`).default;
   }
 };
 </script>

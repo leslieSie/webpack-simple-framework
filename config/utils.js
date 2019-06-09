@@ -16,7 +16,7 @@ let dir_create = function(absPath, fn) {
     fs.mkdir(absPath, fn);
 }
 
-const global_exclude = [/node_modules/];
+const global_exclude = [/node_modules/, absPath('build')];
 
 module.exports = {
     absPath,

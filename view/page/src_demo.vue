@@ -13,18 +13,21 @@
   </div>
 </template>
 <script>
-import img from '../public/by2.jpg';
-let utils = require('../../src/index.js').default;
+import img from "../public/by2.jpg";
+let utils = require("../../src/index.js").default;
 export default {
-  data () {
+  data() {
     return {
       image: img
     };
   },
   methods: {
-    clickAlert () {
-      utils.alertTest('测试!');
+    clickAlert() {
+      utils.alertTest("测试!");
     }
+  },
+  ceated() {
+    console.log(utils);
   }
 };
 </script>

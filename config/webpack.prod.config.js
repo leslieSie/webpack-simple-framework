@@ -29,18 +29,20 @@ async function dealBuild() {
         resolve(true);
     }).then(data => {
         console.log('处理生成文件')
+        console.log(prodConfig);
         let isShowSource = prodConfig.showSource || false;
         let isExample = prodConfig.packageExample || false;
-        if (isShowSource) {
-            copyFiles.push({
-                from: 'src',
-                to: prodConfig.outputSourceDirectory || 'source'
-            });
-        }
+
         if (isExample) {
             copyFiles.push({
                 from: 'view',
-                to: 'view'
+                to: 'example'
+            });
+        }
+        if (isShowSource) {
+            copyFiles.push({
+                from: 'src',
+                to: prodConfig.outputSourceDirectory || 'src'
             });
         }
         return true;
@@ -53,7 +55,7 @@ async function dealBuild() {
                 path: absPath('build'),
                 filename: `${prodConfig.outputMainFile || 'index.js'}`,
                 libraryExport: 'default',
-                libraryTarget: 'commonjs'
+                libraryTarget: 'umd'
             },
             module: {
                 rules: [{
@@ -77,6 +79,8 @@ async function dealBuild() {
     return exportData;
 };
 
-module.exports = function() {
-    return dealBuild();
+module.exports = async function() {
+    let config = await dealBuild();
+    console.log(config);
+    return config;
 }
