@@ -7,25 +7,22 @@
   </div>
 </template>
 <script>
-import img from "../public/by2.jpg";
-let prodConfig = require("../../config/prod.config.js");
-let utils = require("../../build/main.js");
-debugger;
+import img from '../public/by2.jpg';
+let prodConfig = require('../../config/prod.config.js');
+let utils = require('../../build/main.js');
 export default {
-  data() {
+  data () {
     return {
       image: img
     };
   },
   methods: {
-    clickAlert() {
-      utils.alertTest("测试!");
+    clickAlert () {
+      utils.alertTest('测试!');
     }
   },
-  created() {
+  created () {
     let fileName = prodConfig.bundleFile;
-    // utils = require("../../build/main.js");
-    // debugger;
   }
 };
 </script>

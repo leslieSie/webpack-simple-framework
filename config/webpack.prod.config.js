@@ -12,6 +12,10 @@ const {
 
 let copyFiles = [{
     from: 'package.json'
+}, {
+    from: 'README.md'
+}, {
+    from: 'LICENSE'
 }];
 
 let folder_exits = file_exit(path.join(__dirname, '../', 'build'));
