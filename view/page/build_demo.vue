@@ -7,22 +7,22 @@
   </div>
 </template>
 <script>
-import img from "../public/by2.jpg";
-let prodConfig = require("../../config/prod.config.js");
+import img from '../public/by2.jpg';
+let prodConfig = require('../../config/prod.config.js');
 let utils;
 export default {
-  data() {
+  data () {
     return {
       image: img
     };
   },
   methods: {
-    clickAlert() {
-      utils.alertTest("测试!");
+    clickAlert () {
+      utils.alertTest('测试!');
     }
   },
-  created() {
-    let fileName = prodConfig.entryMainFile || "index";
+  created () {
+    let fileName = prodConfig.entryMainFile || 'index';
     utils = require(`../../build/${fileName}.js`);
   }
 };

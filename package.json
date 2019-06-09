@@ -9,8 +9,8 @@
     "scripts": {
         "dev": "webpack-dev-server --progress --config config/webpack.dev.config.js",
         "build": "webpack --config config/webpack.prod.config.js",
-        "lint:dev": "eslint --fix --ext .js,.vue view",
-        "lint:prod": "eslint --fix --ext .js,.vue src"
+        "lint": "eslint --fix --ext .js,.vue view && eslint --fix --ext .js,.vue src",
+        "test": "webpack --config config/webpack.test.config.js"
     },
     "dependencies": {
         "babel-core": "^6.26.3",

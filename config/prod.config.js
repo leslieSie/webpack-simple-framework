@@ -1,9 +1,10 @@
 module.exports = {
     devtool: 'hidden-source-map',
     showSource: true, // default false
-    outputSourceDirectory: 'source', // default value is source, if showSource property set false and this property can't use
-    // entryMainFile: '', // default index.js
-    // outputMainFile: '', // default index.js
+    packageExample: true, // default false
+    outputSourceDirectory: 'src', // default value is source, if showSource property set false and this property can't use
+    entryMainFile: 'index.js', // default index.js
+    outputMainFile: 'index.js', // default index.js
 }
 
 /*

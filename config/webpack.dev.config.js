@@ -4,7 +4,7 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const vueLoaderPlugin = require('vue-loader/lib/plugin');
-const { absPath } = require('./utils.js');
+const { absPath, global_exclude } = require('./utils.js');
 
 module.exports = webpackMerge(baseConfig, {
     entry: {
@@ -21,14 +21,14 @@ module.exports = webpackMerge(baseConfig, {
     module: {
         rules: [{
                 test: /\.html$/,
-                exclude: /node_modules/,
+                exclude: global_exclude,
                 use: {
                     loader: 'html-loader'
                 }
             },
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
+                exclude: global_exclude,
                 use: [{
                     loader: 'babel-loader',
                     query: {
@@ -47,7 +47,7 @@ module.exports = webpackMerge(baseConfig, {
             },
             {
                 test: /\.vue$/,
-                exclude: /node_modules/,
+                exclude: global_exclude,
                 use: 'vue-loader'
             },
             {
@@ -60,7 +60,7 @@ module.exports = webpackMerge(baseConfig, {
             },
             {
                 test: /\.less$/,
-                exclude: /node_modules/,
+                exclude: global_exclude,
                 use: ['vue-style-loader', {
                     loader: 'css-loader',
                     options: {

@@ -16,8 +16,11 @@ let dir_create = function(absPath, fn) {
     fs.mkdir(absPath, fn);
 }
 
+const global_exclude = [/node_modules/];
+
 module.exports = {
     absPath,
     file_exit,
-    dir_create
+    dir_create,
+    global_exclude
 }
