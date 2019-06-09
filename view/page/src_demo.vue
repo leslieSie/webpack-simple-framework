@@ -15,6 +15,7 @@
 <script>
 import img from "../public/by2.jpg";
 let utils = require("../../src/index.js").default;
+
 export default {
   data() {
     return {

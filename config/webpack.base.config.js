@@ -7,7 +7,8 @@ module.exports = {
             'vue$': 'vue/dist/vue.esm.js',
             '@': absPath('src'),
             '_': absPath('view'),
-            '_C_': absPath('config')
+            '_C_': absPath('config'),
+            '_B_': absPath('build')
         }
     }
 

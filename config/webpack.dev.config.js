@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const vueLoaderPlugin = require('vue-loader/lib/plugin');
 const { absPath, global_exclude } = require('./utils.js');
-console.log(global_exclude);
+
 module.exports = webpackMerge(baseConfig, {
     entry: {
         ployfill: 'babel-polyfill',

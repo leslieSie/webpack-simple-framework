@@ -16,6 +16,33 @@ let copyFiles = [{
 
 let folder_exits = file_exit(path.join(__dirname, '../', 'build'));
 
+/* module.exports = webpackMerge(baseConfig, {
+    entry: [absPath(`src/${prodConfig.entryMainFile || 'index.js'}`)],
+    devtool: false,
+    mode: 'production',
+    output: {
+        path: absPath('build'),
+        filename: `${prodConfig.bundleFile || 'main.js'}`,
+        libraryExport: 'default',
+        libraryTarget: 'commonjs'
+    },
+    module: {
+        rules: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+            }]
+        }, ]
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new copyWebpackPlugin(copyFiles)
+    ]
+}); */
 async function dealBuild() {
     let process = new Promise((resolve, reject) => {
         if (!folder_exits) {
@@ -42,7 +69,7 @@ async function dealBuild() {
         if (isShowSource) {
             copyFiles.push({
                 from: 'src',
-                to: prodConfig.outputSourceDirectory || 'src'
+                to: prodConfig.outputSourceDirectory || 'source'
             });
         }
         return true;
@@ -53,9 +80,9 @@ async function dealBuild() {
             mode: 'production',
             output: {
                 path: absPath('build'),
-                filename: `${prodConfig.outputMainFile || 'index.js'}`,
+                filename: `${prodConfig.bundleFile || 'main.js'}`,
                 libraryExport: 'default',
-                libraryTarget: 'umd'
+                libraryTarget: 'commonjs'
             },
             module: {
                 rules: [{
