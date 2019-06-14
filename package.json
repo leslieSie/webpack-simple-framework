@@ -7,7 +7,7 @@
     "author": "leslieSie <2358407968@qq.com>",
     "license": "MIT",
     "scripts": {
-        "dev": "webpack-dev-server --progress --config config/webpack.dev.config.js",
+        "dev": "npm run build && webpack-dev-server --progress --config config/webpack.dev.config.js",
         "build": "webpack --config config/webpack.prod.config.js",
         "lint": "eslint --fix --ext .js,.vue view && eslint --fix --ext .js,.vue src",
         "release": "node ./config/framework-publish.js"
