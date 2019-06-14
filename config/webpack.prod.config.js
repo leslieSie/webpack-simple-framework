@@ -45,6 +45,7 @@ async function dealBuild() {
           console.log("新建文件存储目录");
         });
       }
+      resolve(true);
     })
     .then(data => {
       console.log("处理生成文件");
