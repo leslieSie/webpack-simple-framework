@@ -1,26 +1,42 @@
-let path = require('path');
-let fs = require('fs');
+let path = require("path");
+let fs = require("fs");
 
 // generate file address
 let absPath = function(dir) {
-    return path.join(__dirname, '../', dir);
-}
+  return path.join(__dirname, "../", dir);
+};
 
 // judge the file is exit
-let file_exit = function(absPath) {
-    return fs.existsSync(absPath);
-}
+let fileExit = function(absPath) {
+  return fs.existsSync(absPath);
+};
 
 // create new directory
-let dir_create = function(absPath, fn) {
-    fs.mkdir(absPath, fn);
-}
+let dirCreate = function(absPath, fn) {
+  fs.mkdir(absPath, fn);
+};
 
-const global_exclude = [/node_modules/, absPath('build')];
+//judge the dataType
+let dataType = function(data) {};
+
+//create file on absolute path.if the path is not exits,this function can create the file whitch you dictate
+let createFile = function(absPath = "", fn) {};
+
+// delete file
+let deleteFile = function(absPath = "", params, fn) {};
+
+//store to file
+let store2File = function(absPath = "", writeMsg) {};
+
+const global_exclude = [/node_modules/, absPath("build")];
 
 module.exports = {
-    absPath,
-    file_exit,
-    dir_create,
-    global_exclude
-}
+  absPath,
+  fileExit,
+  dirCreate,
+  global_exclude,
+  dataType,
+  createFile,
+  deleteFile,
+  store2File
+};

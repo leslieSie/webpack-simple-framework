@@ -7,8 +7,8 @@ const copyWebpackPlugin = require("copy-webpack-plugin");
 const baseConfig = require("./webpack.base.config.js");
 const {
     absPath,
-    file_exit,
-    dir_create
+    fileExit,
+    dirCreate
 } = require("./utils.js");
 
 let copyFiles = [{
@@ -23,12 +23,12 @@ let copyFiles = [{
     }
 ];
 
-let folder_exits = file_exit(path.join(__dirname, "../", "build"));
+let folder_exits = fileExit(path.join(__dirname, "../", "build"));
 
 async function dealBuild() {
     let process = new Promise((resolve, reject) => {
             if (!folder_exits) {
-                dir_create(path.join(__dirname, "../", "build"), err => {
+                dirCreate(path.join(__dirname, "../", "build"), err => {
                     if (err) {
                         console.error(err);
                     }

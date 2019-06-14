@@ -4829,7 +4829,7 @@ npm-packlist@^1.1.6:
     ignore-walk "^3.0.1"
     npm-bundled "^1.0.1"
 
-npm-registry-client@8.6.0:
+npm-registry-client@8.6.0, npm-registry-client@^8.6.0:
   version "8.6.0"
   resolved "https://registry.npm.taobao.org/npm-registry-client/download/npm-registry-client-8.6.0.tgz#7f1529f91450732e89f8518e0f21459deea3e4c4"
   dependencies:
