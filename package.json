@@ -10,7 +10,8 @@
         "dev": "npm run build && webpack-dev-server --progress --config config/webpack.dev.config.js",
         "build": "webpack --config config/webpack.prod.config.js",
         "lint": "eslint --fix --ext .js,.vue view && eslint --fix --ext .js,.vue src",
-        "release": "node ./config/framework-publish.js"
+        "release": "node ./config/framework-publish.js",
+        "test": "node ./config/test.js"
     },
     "dependencies": {
         "babel-core": "^6.26.3",
