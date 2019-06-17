@@ -100,25 +100,43 @@ let createFile = function(specifiedPath = "", cb) {
 
 };
 
+let delFilesCoreModule = function(absPaths, params) {
+    let isExist = fileExist(absPaths);
+    // if (isExist) {
+    let status = fs.unlinkSync(absPaths);
+    console.log(status);
+    /*               fs.unlink(absPaths, (err) => {
+                if (err) {
+                    console.log(err);
+                    return false;
+                }
+                console.log('文件删除成功!'.green);
+                if (dataType(params) == 'Object' && params.autoClear == true) {
+                    let files = fs.readdirSync(getFileMsg(absPaths).dirname);
+                    if (files.length == 0) {
+                        console.log(getFileMsg(absPaths).dirname);
+                        fs.unlink(getFileMsg(absPaths).dirname, (err) => {
+                            console.log(err);
+                            console.log('空文件夹删除'.green);
+                        });
+
+                    }
+                }
+                return true;
+            }); */
+    // }
+};
+
 // delete file
 let delFiles = function(absPaths, params, fn) {
     switch (dataType(absPaths)) {
         case 'String':
-            let isExist = fileExist(absPaths);
-            if (isExist) {
-                fs.unlink(absPaths, (err) => {
-                    if (err) {
-                        console.log(err);
-                        return false;
-                    }
-                    console.log('文件删除成功!');
-                    return true;
-                });
-            } else {
-
-            }
+            delFilesCoreModule(absPaths, params);
             break;
-        case 'Function':
+        case 'Array':
+            absPaths.forEach(path => {
+                delFilesCoreModule(path, params);
+            });
             break;
     }
 };
