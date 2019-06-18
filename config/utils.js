@@ -56,8 +56,7 @@ let getFileMsg = function (absPath) {
   }
 };
 
-// create file on specified path,If the path mean directory,will return error message.If the path whitch is exist file,return a message to tell developer the file is exist.otherwise,create files depend on specifiedPath param.create succes run cb params.by the way,fn must Function type.
-let createFile = function (specifiedPath = "", cb) {
+let createFileCoreModule = function (specifiedPath) {
   new Promise((resolve, reject) => {
       fs.stat(specifiedPath, (err, stats) => {
         if (err) {
@@ -89,15 +88,31 @@ let createFile = function (specifiedPath = "", cb) {
             return false;
           }
         });
-        if (dataType(cb) == 'Function') {
-          cb();
-        }
+        /*  if (dataType(cb) == 'Function') {
+           cb();
+         } */
       });
     })
     .catch(errObj => {
       console.log(errObj.msg.red)
     })
+}
 
+// create file on specified path,If the path mean directory,will return error message.If the path whitch is exist file,return a message to tell developer the file is exist.otherwise,create files depend on specifiedPath param.create succes run cb params.by the way,fn must Function type.
+let createFile = function (specifiedPaths) {
+  switch (dataType(specifiedPaths)) {
+    case 'String':
+      createFileCoreModule(specifiedPaths);
+      break;
+    case 'Array':
+      specifiedPaths.forEach(itemPath => {
+        createFileCoreModule(itemPath);
+      });
+      break;
+    case 'Undefined':
+      console.log('创建的路径不能为空!'.red);
+      break;
+  }
 };
 
 let delFilesCoreModule = function (absPaths, params) {
@@ -130,11 +145,20 @@ let delFiles = function (absPaths, params, fn) {
   }
 };
 
-//store to file
-let store2File = function (absPath = "", writeMsg) {
-  /*  fs.createWriteStream(
-
-   ) */
+//store to file,only support message write to single file
+let store2File = function (absPath = "", writeMsg, writeParams) {
+  if (fileExist(absPath) && !fs.statSync(absPath).isDirectory()) {
+    console.log(writeMsg);
+    fs.writeFile(absPath, writeMsg, 'utf8', (err) => {
+      if (err) {
+        console.log('文件写入错误'.red);
+        return false;
+      }
+      console.log('文件写入成功'.green);
+    });
+  } else {
+    console.log('传入的路径无效,检查路径是否为文件以及路径是否存在'.red);
+  }
 };
 
 const global_exclude = [/node_modules/, absPath("build")];
