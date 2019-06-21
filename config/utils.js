@@ -1,130 +1,131 @@
 let path = require("path");
 let fs = require("fs");
-let mkdirp = require('mkdirp');
-const colors = require('colors');
+let mkdirp = require("mkdirp");
+const colors = require("colors");
 
 // generate file address
-let absPath = function (dir) {
+let absPath = function(dir) {
   return path.join(__dirname, "../", dir);
 };
 
 // judge the file is exist
-let fileExist = function (absPath) {
+let fileExist = function(absPath) {
   return fs.existsSync(absPath);
 };
 
 // create new directory,if the directory exist that the function return the string which is 'the directory is exist'
-let dirCreate = function (absPath, fn) {
+let dirCreate = function(absPath, fn) {
   let directoryIsExist = fileExist(absPath);
   if (directoryIsExist) {
-    console.log('要创建的文件目录已经存在'.red);
+    console.log("要创建的文件目录已经存在".red);
     return {
-      status: 'exist'
-    }
+      status: "exist"
+    };
   } else {
     mkdirp(absPath, err => {
       if (err) {
         console.log(err.red);
         return {
-          status: 'error'
-        }
+          status: "error"
+        };
       }
-      if (dataType(fn) == 'Function') {
+      if (dataType(fn) == "Function") {
         fn();
       }
     });
     return {
-      status: 'success'
-    }
+      status: "success"
+    };
   }
 };
 
 //judge the data type
-let dataType = function (data) {
+let dataType = function(data) {
   let tmpType = Object.prototype.toString.call(data);
   let sliceString = tmpType.slice(1, tmpType.length - 1);
-  return sliceString.split(' ').reverse()[0];
+  return sliceString.split(" ").reverse()[0];
 };
 
 // get file name and directory name from absolute path
-let getFileMsg = function (absPath) {
+let getFileMsg = function(absPath) {
   let basename = path.basename(absPath);
   let dirname = path.dirname(absPath);
   return {
     filename: basename,
     dirname: dirname
-  }
+  };
 };
 
-let createFileCoreModule = function (specifiedPath) {
+let createFileCoreModule = function(specifiedPath) {
   new Promise((resolve, reject) => {
-      fs.stat(specifiedPath, (err, stats) => {
-        if (err) {
-          resolve();
-          return false;
-        }
-        if (stats.isDirectory()) {
-          reject({
-            msg: '传入的路径不能为目录路径'
-          })
-        }
-        if (stats.isFile()) {
-          reject({
-            msg: '文件已经存在'
-          });
-        }
-      })
-    })
+    fs.stat(specifiedPath, (err, stats) => {
+      if (err) {
+        resolve();
+        return false;
+      }
+      if (stats.isDirectory()) {
+        reject({
+          msg: "传入的路径不能为目录路径"
+        });
+      }
+      if (stats.isFile()) {
+        reject({
+          msg: `路径为${specifiedPath}的文件已经存在`
+        });
+      }
+    });
+  })
     .then(data => {
       let fileMsgs = getFileMsg(specifiedPath);
       mkdirp(fileMsgs.dirname, err => {
         if (err) {
-          console.log('文件创建失败'.red);
+          console.log("文件创建失败".red);
           return false;
         }
-        fs.writeFile(path.join(fileMsgs.dirname, fileMsgs.filename), {}, (err) => {
-          if (err) {
-            console.log(err.red);
-            return false;
+        fs.writeFile(
+          path.join(fileMsgs.dirname, fileMsgs.filename),
+          {},
+          err => {
+            if (err) {
+              console.log(err.red);
+              return false;
+            }
           }
-        });
-        /*  if (dataType(cb) == 'Function') {
-           cb();
-         } */
+        );
       });
     })
     .catch(errObj => {
-      console.log(errObj.msg.red)
-    })
-}
+      console.log(errObj.msg.red);
+    });
+};
 
 // create file on specified path,If the path mean directory,will return error message.If the path whitch is exist file,return a message to tell developer the file is exist.otherwise,create files depend on specifiedPath param.create succes run cb params.by the way,fn must Function type.
-let createFile = function (specifiedPaths) {
+let createFile = function(specifiedPaths) {
   switch (dataType(specifiedPaths)) {
-    case 'String':
+    case "String":
       createFileCoreModule(specifiedPaths);
       break;
-    case 'Array':
+    case "Array":
       specifiedPaths.forEach(itemPath => {
         createFileCoreModule(itemPath);
       });
       break;
-    case 'Undefined':
-      console.log('创建的路径不能为空!'.red);
+    case "Undefined":
+      console.log("创建的路径不能为空!".red);
       break;
   }
 };
 
-let delFilesCoreModule = function (absPaths, params) {
+let delFilesCoreModule = function(absPaths, params) {
   let isExist = fileExist(absPaths);
   if (isExist) {
     fs.unlinkSync(absPaths);
-    console.log('文件删除成功!'.green);
-    if (dataType(params) == 'Object' && params.autoClear == true) {
+    console.log("文件删除成功!".green);
+    if (dataType(params) == "Object" && params.autoClear == true) {
       let files = fs.readdirSync(getFileMsg(absPaths).dirname);
       if (files.length == 0) {
-        fs.rmdir(getFileMsg(absPaths).dirname, (err) => {
-          console.log('空文件夹删除'.green);
+        fs.rmdir(getFileMsg(absPaths).dirname, err => {
+          console.log("空文件夹删除".green);
         });
       }
     }
@@ -132,12 +133,12 @@ let delFilesCoreModule = function (absPaths, params) {
 };
 
 // delete file
-let delFiles = function (absPaths, params, fn) {
+let delFiles = function(absPaths, params, fn) {
   switch (dataType(absPaths)) {
-    case 'String':
+    case "String":
       delFilesCoreModule(absPaths, params);
       break;
-    case 'Array':
+    case "Array":
       absPaths.forEach(path => {
         delFilesCoreModule(path, params);
       });
@@ -145,19 +146,34 @@ let delFiles = function (absPaths, params, fn) {
   }
 };
 
+//read message from file
+let readFromFile = function(absPath, cb) {};
+
 //store to file,only support message write to single file
-let store2File = function (absPath = "", writeMsg, writeParams) {
+let store2File = function(absPath = "", writeMsg, writeParams) {
+  let dealStr = "";
+  switch (dataType(writeMsg)) {
+    case "Object":
+    case "Array":
+      dealStr = JSON.stringify(writeMsg);
+      break;
+  }
+  const buf = Buffer.from(dealStr, "utf8");
+
   if (fileExist(absPath) && !fs.statSync(absPath).isDirectory()) {
-    console.log(writeMsg);
-    fs.writeFile(absPath, writeMsg, 'utf8', (err) => {
-      if (err) {
-        console.log('文件写入错误'.red);
-        return false;
-      }
-      console.log('文件写入成功'.green);
+    let writeSteam = fs.createWriteStream(absPath);
+    writeSteam.write(buf, "utf8");
+    writeSteam.end();
+
+    writeSteam.on("finish", () => {
+      console.log("文件写入成功".green);
+    });
+
+    writeSteam.on("error", () => {
+      console.log("文件写入错误".red);
     });
   } else {
-    console.log('传入的路径无效,检查路径是否为文件以及路径是否存在'.red);
+    console.log("指定的路径文件不存在".red);
   }
 };
 

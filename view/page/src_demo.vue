@@ -28,7 +28,7 @@ export default {
     }
   },
   ceated () {
-    console.log(utils);
+    // console.log(utils);
   }
 };
 </script>
