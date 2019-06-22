@@ -37,6 +37,7 @@
         "eslint-plugin-vue": "^5.2.2",
         "html-loader": "^0.5.5",
         "iview": "^3.4.2",
+        "jsonfile": "^5.0.0",
         "karma-webpack": "^4.0.2",
         "less-loader": "^5.0.0",
         "mkdirp": "^0.5.1",

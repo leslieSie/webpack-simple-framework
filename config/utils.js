@@ -2,6 +2,7 @@ let path = require("path");
 let fs = require("fs");
 let mkdirp = require("mkdirp");
 const colors = require("colors");
+const jsonfile = require('jsonfile');
 
 // generate file address
 let absPath = function(dir) {
@@ -117,7 +118,6 @@ let createFiles = async function(specifiedPaths, cb) {
             let status = specifiedPaths.forEach(async itemPath => {
                 await createFileCoreModule(itemPath);
                 statistic++;
-                console.log(statistic);
                 if (Object.is(statistic, specifiedPaths.length)) {
                     cb();
                 }
@@ -134,7 +134,6 @@ let delFilesCoreModule = function(absPaths, params, cb) {
     if (isExist) {
         fs.unlinkSync(absPaths);
         console.log("文件删除成功!".green);
-        console.log(dataType(params) == "Object" && params.autoClear == true);
         if (dataType(params) == "Object" && params.autoClear == true) {
             let files = fs.readdirSync(getFileMsg(absPaths).dirname);
             if (files.length == 0) {
@@ -165,19 +164,61 @@ let deleteFiles = function(absPaths, params, cb) {
 };
 
 //read message from file
-let readFromFile = function(absPath, cb) {};
+let readFromFile = function(absPath = "", params, cb) {
+    if (fileExist(absPath)) {
+        let fileMsg = fs.readFileSync(absPath, 'utf8');
+        if (Object.is('Object', dataType(params))) {
+            switch (params.type) {
+                case 'json':
+
+                    jsonfile.readFile(absPath, (err, obj) => {
+                        if (err == undefined) {
+                            cb(err, obj);
+                        }
+                    });
+
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            cb(fileMsg);
+        }
+    }
+};
 
 //store to file,only support message write to single file
+// writeMsg not type undefined,null,NaN
 let store2File = function(absPath = "", writeMsg, writeParams) {
     let dealStr = "";
-    switch (dataType(writeMsg)) {
-        case "Object":
-        case "Array":
-            dealStr = JSON.stringify(writeMsg);
-            break;
+    if (Object.is(dataType(writeParams), 'Object') && writeParams.parseType) {
+        switch (writeParams.parseType) {
+            case 'json':
+                jsonfile.writeFile(absPath, writeMsg)
+                    .then(res => {
+                        console.log(res);
+                    })
+                break;
+            default:
+                break;
+        }
+    } else {
+        dealStr = writeMsg.toString();
     }
-    const buf = Buffer.from(dealStr, "utf8");
+    /*  switch (dataType(writeMsg)) {
+         case "Object":
+         case "Array":
+             dealStr = JSON.stringify(writeMsg);
+             break;
+         case 'Function':
+             dealStr = writeMsg.toString();
+             break;
+         default:
+             dealStr = writeMsg;
+             break;
+     } */
 
+    const buf = Buffer.from(dealStr, "utf8");
     if (fileExist(absPath) && !fs.statSync(absPath).isDirectory()) {
         let writeSteam = fs.createWriteStream(absPath);
         writeSteam.write(buf, "utf8");
@@ -206,5 +247,6 @@ module.exports = {
     createFiles,
     deleteFiles,
     store2File,
-    getFileMsg
+    getFileMsg,
+    readFromFile
 };
