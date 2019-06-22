@@ -7,8 +7,8 @@ const copyWebpackPlugin = require("copy-webpack-plugin");
 const baseConfig = require("./webpack.base.config.js");
 const {
     absPath,
-    file_exit,
-    dir_create
+    fileExist,
+    dirCreate
 } = require("./utils.js");
 
 let copyFiles = [{
@@ -23,12 +23,11 @@ let copyFiles = [{
     }
 ];
 
-let folder_exits = file_exit(path.join(__dirname, "../", "build"));
 
 async function dealBuild() {
     let process = new Promise((resolve, reject) => {
-            if (!folder_exits) {
-                dir_create(path.join(__dirname, "../", "build"), err => {
+            if (!(fileExist(path.join(__dirname, "../", "build")))) {
+                dirCreate(path.join(__dirname, "../", "build"), err => {
                     if (err) {
                         console.error(err);
                     }
@@ -36,6 +35,17 @@ async function dealBuild() {
                 });
             }
             resolve(true);
+        })
+        .then(data => {
+            if (!(fileExist(path.join(__dirname, '../', 'file_storage')))) {
+                dirCreate(path.join(__dirname, "../", "file_storage"), err => {
+                    if (err) {
+                        console.error(err);
+                    }
+                    console.log("新建文件存储目录");
+                });
+            }
+            return true;
         })
         .then(data => {
             console.log("处理生成文件");

@@ -2,9 +2,9 @@ const fs = require('fs');
 const shell = require('shelljs');
 const colors = require('colors');
 const npmLogin = require('npm-cli-login');
-let bundlePackage = '';
-shell.cd('build');
-npmLogin('XXXXXXXXX','XXXXXXXXX','XXXXXXXXX');
+const userMsg = require('./npmUserLogin.js');
+console.log(userMsg);
+npmLogin(userMsg.username, userMsg.password, userMsg.email);
 /* shell.exec('yarn -v', function (code, stdout, stderr) {
   if (code != 0) {
     console.log(stderr.red);
