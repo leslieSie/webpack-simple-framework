@@ -170,13 +170,11 @@ let readFromFile = function(absPath = "", params, cb) {
         if (Object.is('Object', dataType(params))) {
             switch (params.type) {
                 case 'json':
-
                     jsonfile.readFile(absPath, (err, obj) => {
                         if (err == undefined) {
                             cb(err, obj);
                         }
                     });
-
                     break;
                 default:
                     break;
