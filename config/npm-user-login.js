@@ -1,9 +1,9 @@
 module.exports = {
   loginConfig: {
     // 账号，密码，邮箱需要到https://www.npmjs.com/ 网站去注册
-    username: "leslieSie", // 必填
-    password: "", // 必填
-    email: "" // 必填
+    username: "lesliesie", // 必填
+    password: "1qaz@WSXxcy", // 必填
+    email: "2358407968@qq.com" // 必填
   },
   /**
    * version接受两种类型的传参Object,Function，默认采用version Object
@@ -35,7 +35,7 @@ module.exports = {
    **/
 
   releaseConfig: {
-    version: {},
+    version: 111,
     type: ""
   },
 

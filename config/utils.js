@@ -18,7 +18,7 @@ let fileExist = function(absPath) {
 let dirCreate = function(absPath, fn) {
   let directoryIsExist = fileExist(absPath);
   if (directoryIsExist) {
-    console.log("要创建的文件目录已经存在".red);
+    console.log("the directory is exist".red);
     return {
       status: "exist"
     };

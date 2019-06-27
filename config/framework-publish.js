@@ -2,7 +2,7 @@ const fs = require("fs");
 const shell = require("shelljs");
 const colors = require("colors");
 const RegClient = require("npm-registry-client");
-const userMsg = require("./npmUserLogin.js");
+const userMsg = require("./npm-user-login.js");
 const { readFromFile, absPath, store2File, dataType } = require("./utils.js");
 var client = new RegClient();
 
@@ -35,9 +35,21 @@ let detectEntry = function() {
   try {
     for (let key in userMsg.loginConfig) {
       let status = detectCore(userMsg.loginConfig[key]);
-     if(!status){
-       throw `you may not match setting on npmUserLogin.js,maybe property on userMsg.loginConfig.${key} is Empty`;
-     }
+      if (!status) {
+        throw `you may not set up correctly on the file npmUserLogin.js,maybe property userMsg.loginConfig.${key} is empty`;
+      }
+    }
+    /*  for (let key in userMsg.packageConfig) {
+      if (Object.is(key, "name") || Object.is(key, "repository")) {
+        let status = detectCore(userMsg.packageConfig[key]);
+        if (!status) {
+          throw `you may not set up correctly on the file npmUserLogin.js,maybe property userMsg.packageConfig.${key} is empty`;
+        }
+      }
+    } */
+    let versionType = dataType(userMsg.releaseConfig.version);
+    if (!Object.is(versionType, "Object") && !Object.is(versionType, "Function")) {
+      throw `you may not set up correctly on the file npmUserLogin.js,maybe property userMsg.releaseConfig.version type no Function And Object`;
     }
   } catch (err) {
     console.log(err.red);
@@ -45,11 +57,16 @@ let detectEntry = function() {
   }
 };
 
+// 计算出默认配置
+let computedSetting = function() {
+  console.log(userMsg);
+};
+
 // main
 (function() {
   let isPass = detectEntry();
-  if(isPass){
-    console.log('continue');
+  if (isPass) {
+    // computedSetting();
   }
 })();
 
