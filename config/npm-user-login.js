@@ -6,6 +6,8 @@ module.exports = {
     email: "2358407968@qq.com" // 必填
   },
   /**
+   * 默认初始化版本是0.0.1
+   *
    * version接受两种类型的传参Object,Function，默认采用version Object
    *  Function 指定需要返回的版本号，传入version函数的第一个参数为当前系统的版本号
    *  函数返回的值将作为当前发布的版本号和下一次传入的参数。
@@ -40,17 +42,27 @@ module.exports = {
   },
 
   /*
-   * name 包或发布名 (必填)
-   * description 描述 default:undefined
-   * main 入口配置 default:undefined
-   * repository git远程仓库（必填）
-   * dependencies 生产环境依赖 default:undefined
-   * devDependencies 开发环境依赖 default:undefined
+   * name <String> 包或发布名 (必填)
+   * description <String> 描述 default:undefined
+   * main <String> 入口配置 default:undefined
+   * repository <String> git远程仓库（必填）
+   * dependencies <String> 生产环境依赖 default:undefined
+   * devDependencies <String> 开发环境依赖 default:undefined
    */
   packageConfig: {
     name: "",
     description: "",
     main: "",
     repository: ""
+  },
+
+  /**
+   * 用来指定再file_storage文件夹中信息存储的配置
+   * name <String> 用来指定存储信息的文件名 default:'setting.json'
+   * vFiled <String> 指定version存储的字段 default:'version'
+   */
+  storageConfig: {
+    name: "",
+    vFiled: ""
   }
 };

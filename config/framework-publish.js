@@ -3,8 +3,49 @@ const shell = require("shelljs");
 const colors = require("colors");
 const RegClient = require("npm-registry-client");
 const userMsg = require("./npm-user-login.js");
-const { readFromFile, absPath, store2File, dataType } = require("./utils.js");
+const {
+  readFromFile,
+  absPath,
+  store2File,
+  dataType,
+  fileExist,
+  getFileMsg
+} = require("./utils.js");
 var client = new RegClient();
+
+// 初始化版本号文件
+let initVersion = function() {
+  /*  if (Object.is(dataType(userMsg.storageConfig), "Object")) {
+    // if(getFileMsg(absPath(`file_storage/${}`)))
+    // if(fileExist(absPath(`file_storage/`)))
+  } else {
+
+  } */
+  new Promise((resolve, reject) => {
+    if (Object.is(dataType(userMsg.storageConfig), "Object")) {
+      resolve(true);
+    } else {
+      userMsg.storageConfig = {
+        name: "setting.json",
+        vFiled: "0.0.1"
+      };
+      if (!fileExist(absPath(`file_storage/${userMsg.storageConfig.name}`))) {
+        store2File(
+          absPath(`file_storage/${userMsg.storageConfig.name}`),
+          {
+            version: userMsg.storageConfig.vFiled
+          },
+          {
+            type: "json",
+            created: true
+          }
+        );
+      }
+    }
+  }).then(res => {
+    console.log(res);
+  });
+};
 
 // 判断数据是否符合检测类型
 let detectCore = function(data) {
@@ -48,7 +89,10 @@ let detectEntry = function() {
       }
     } */
     let versionType = dataType(userMsg.releaseConfig.version);
-    if (!Object.is(versionType, "Object") && !Object.is(versionType, "Function")) {
+    if (
+      !Object.is(versionType, "Object") &&
+      !Object.is(versionType, "Function")
+    ) {
       throw `you may not set up correctly on the file npmUserLogin.js,maybe property userMsg.releaseConfig.version type no Function And Object`;
     }
   } catch (err) {
@@ -59,15 +103,26 @@ let detectEntry = function() {
 
 // 计算出默认配置
 let computedSetting = function() {
-  console.log(userMsg);
+  switch (dataType(userMsg.releaseConfig.version)) {
+    case "Object":
+      break;
+    case "Function":
+      let readLastVersion = readFromFile(absPath());
+      let version = userMsg.releaseConfig.version();
+      break;
+  }
+  return userMsg;
 };
 
 // main
 (function() {
-  let isPass = detectEntry();
+  initVersion();
+  // let computedUserMsg = computedSetting();
+  // console.log(computedUserMsg);
+  /*  let isPass = detectEntry();
   if (isPass) {
     // computedSetting();
-  }
+  } */
 })();
 
 /* readFromFile(

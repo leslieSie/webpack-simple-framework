@@ -188,8 +188,11 @@ let readFromFile = function(absPath = "", params, cb) {
 
 //store to file,only support message write to single file
 // writeMsg not type undefined,null,NaN
-let store2File = function(absPath = "", writeParams, writeMsg) {
+let store2File = function(absPath = "", writeMsg, writeParams) {
   let dealStr = "";
+  if (!fileExist(absPath) && Object.is(writeParams.created, true)) {
+    fs.writeFileSync(absPath, JSON.stringify({}));
+  }
   if (Object.is(dataType(writeParams), "Object") && writeParams.type) {
     switch (writeParams.type) {
       case "json":

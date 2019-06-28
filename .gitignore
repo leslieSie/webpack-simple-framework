@@ -63,3 +63,4 @@ typings/
 dist/
 build/
 config/test.js
+file_storage/**/*.*
