@@ -47,6 +47,11 @@ let dataType = function(data) {
   return sliceString.split(" ").reverse()[0];
 };
 
+// replace all
+let replaceAll = function(stringObj,s1,s2) {
+  return stringObj.replace(new RegExp(s1,"gm"),s2);
+}
+
 // get file name and directory name from absolute path
 let getFileMsg = function(absPath) {
   let basename = path.basename(absPath);
@@ -249,5 +254,6 @@ module.exports = {
   deleteFiles,
   store2File,
   getFileMsg,
-  readFromFile
+  readFromFile,
+  replaceAll
 };
