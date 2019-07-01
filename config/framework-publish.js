@@ -13,38 +13,41 @@ const {
 } = require("./utils.js");
 var client = new RegClient();
 
-// 初始化版本号文件
+// 初始化版本号记录文件
 let initVersion = function() {
-  /*  if (Object.is(dataType(userMsg.storageConfig), "Object")) {
-    // if(getFileMsg(absPath(`file_storage/${}`)))
-    // if(fileExist(absPath(`file_storage/`)))
-  } else {
-
-  } */
   new Promise((resolve, reject) => {
     if (Object.is(dataType(userMsg.storageConfig), "Object")) {
-      resolve(true);
+      resolve(userMsg.storageConfig);
     } else {
       userMsg.storageConfig = {
         name: "setting.json",
-        vFiled: "0.0.1"
+        vFiled: "version"
       };
-      if (!fileExist(absPath(`file_storage/${userMsg.storageConfig.name}`))) {
-        store2File(
-          absPath(`file_storage/${userMsg.storageConfig.name}`),
-          {
-            version: userMsg.storageConfig.vFiled
-          },
-          {
-            type: "json",
-            created: true
-          }
-        );
-      }
+      throw userMsg.storageConfig;
     }
-  }).then(res => {
-    console.log(res);
-  });
+  })
+    .then(obj => {
+      if (!(obj.name && obj.name != "")) {
+        obj.name = "setting.json";
+      }
+      if (!(obj.vFiled && obj.vFiled != "")) {
+        obj.vFiled = "version";
+      }
+      throw obj;
+    })
+    .catch(msg => {
+      // 生成存储文件
+      store2File(
+        absPath(`file_storage/${msg.name}`),
+        {
+          [msg.vFiled]: ""
+        },
+        {
+          type: "json",
+          created: true
+        }
+      );
+    });
 };
 
 // 判断数据是否符合检测类型
@@ -117,7 +120,7 @@ let computedSetting = function() {
 // main
 (function() {
   initVersion();
-  // let computedUserMsg = computedSetting();
+
   // console.log(computedUserMsg);
   /*  let isPass = detectEntry();
   if (isPass) {
