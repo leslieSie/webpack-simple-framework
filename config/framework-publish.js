@@ -14,43 +14,6 @@ const {
 } = require("./utils.js");
 var client = new RegClient();
 
-// 初始化版本号记录文件
-let initVersion = function() {
-  new Promise((resolve, reject) => {
-    if (Object.is(dataType(userMsg.storageConfig), "Object")) {
-      resolve(userMsg.storageConfig);
-    } else {
-      userMsg.storageConfig = {
-        name: "setting.json",
-        vFiled: "version"
-      };
-      throw userMsg.storageConfig;
-    }
-  })
-    .then(obj => {
-      if (!(obj.name && obj.name != "")) {
-        obj.name = "setting.json";
-      }
-      if (!(obj.vFiled && obj.vFiled != "")) {
-        obj.vFiled = "version";
-      }
-      throw obj;
-    })
-    .catch(msg => {
-      // 生成存储文件
-      store2File(
-        absPath(`file_storage/${msg.name}`),
-        {
-          [msg.vFiled]: ""
-        },
-        {
-          type: "json",
-          created: true
-        }
-      );
-    });
-};
-
 // 判断数据是否符合检测类型
 let detectCore = function(data) {
   let returnStatus;
@@ -75,6 +38,25 @@ let detectCore = function(data) {
   return returnStatus;
 };
 
+// 读取最终生成的存储信息
+let readstoreMessage = function() {
+  let userObj = JSON.parse(JSON.stringify(userMsg));
+  if (Object.is(dataType(userObj.storageConfig), "Object")) {
+    if (!(userObj.name && userObj.name != "")) {
+      userObj.name = "setting.json";
+    }
+    if (!(userObj.vFiled && userObj.vFiled != "")) {
+      userObj.vFiled = "version";
+    }
+  } else {
+    userObj.storageConfig = {
+      name: "setting.json",
+      vFiled: "version"
+    };
+  }
+  return userObj;
+};
+
 // 检测入口
 let detectEntry = function() {
   try {
@@ -84,14 +66,14 @@ let detectEntry = function() {
         throw `you may not set up correctly on the file npmUserLogin.js,maybe property userMsg.loginConfig.${key} is empty`;
       }
     }
-    /*  for (let key in userMsg.packageConfig) {
-          if (Object.is(key, "name") || Object.is(key, "repository")) {
-            let status = detectCore(userMsg.packageConfig[key]);
-            if (!status) {
-              throw `you may not set up correctly on the file npmUserLogin.js,maybe property userMsg.packageConfig.${key} is empty`;
-            }
-          }
-        } */
+    for (let key in userMsg.packageConfig) {
+      if (Object.is(key, "name") || Object.is(key, "repository")) {
+        let status = detectCore(userMsg.packageConfig[key]);
+        if (!status) {
+          throw `you may not set up correctly on the file npmUserLogin.js,maybe property userMsg.packageConfig.${key} is empty`;
+        }
+      }
+    }
     let versionType = dataType(userMsg.releaseConfig.version);
     if (
       !Object.is(versionType, "Object") &&
@@ -99,20 +81,60 @@ let detectEntry = function() {
     ) {
       throw `you may not set up correctly on the file npmUserLogin.js,maybe property userMsg.releaseConfig.version type no Function And Object`;
     }
+    return true;
   } catch (err) {
     console.log(err.red);
     return false;
   }
 };
 
+// 初始化版本号记录文件
+let initVersion = function() {
+  let storeMessage = readstoreMessage();
+  store2File(
+    absPath(`file_storage/${storeMessage.name}`),
+    {
+      [storeMessage.vFiled]: ""
+    },
+    {
+      type: "json",
+      created: true
+    }
+  );
+};
+
 // 计算出默认配置
 let computedSetting = function() {
+  let storeMessage = readstoreMessage();
   switch (dataType(userMsg.releaseConfig.version)) {
     case "Object":
       break;
     case "Function":
-      let readLastVersion = readFromFile(absPath());
-      let version = userMsg.releaseConfig.version();
+      readFromFile(
+        absPath(`file_storage/${storeMessage.name}`),
+        {
+          type: "json"
+        },
+        (err, obj) => {
+          let data = JSON.parse(JSON.stringify(obj));
+          let version = "";
+          if (Object.is(data.version, "")) {
+            version = "0.0.1";
+          }
+          // write to file_storage
+          let storeFileMessage = readstoreMessage();
+          store2File(
+            absPath(`file_storage/${storeFileMessage.name}`),
+            {
+              [storeFileMessage.vFiled]: version
+            },
+            {
+              type: "json"
+            }
+          );
+        }
+      );
+      // let version = userMsg.releaseConfig.version();
       break;
   }
   return userMsg;
@@ -179,11 +201,16 @@ let publish = function() {
 
 // main
 (function() {
+  let isPass = detectEntry();
+  if (isPass) {
+    initVersion();
+    computedSetting();
+  }
   // initVersion();
-  publish();
+  // publish();
   // let computedUserMsg = computedSetting();
   // console.log(computedUserMsg);
-  /*  let isPass = detectEntry();
+  /*
     if (isPass) {
       // computedSetting();
     } */

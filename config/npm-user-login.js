@@ -37,7 +37,7 @@ module.exports = {
    **/
 
   releaseConfig: {
-    version: 111,
+    version: function(){},
     type: ""
   },
 
@@ -50,10 +50,10 @@ module.exports = {
    * devDependencies <String> 开发环境依赖 default:undefined
    */
   packageConfig: {
-    name: "",
+    name: "test",
     description: "",
     main: "",
-    repository: ""
+    repository: "https://github.com/docker-library/mariadb"
   },
 
   /**

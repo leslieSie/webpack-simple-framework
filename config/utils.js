@@ -48,9 +48,9 @@ let dataType = function(data) {
 };
 
 // replace all
-let replaceAll = function(stringObj,s1,s2) {
-  return stringObj.replace(new RegExp(s1,"gm"),s2);
-}
+let replaceAll = function(stringObj, s1, s2) {
+  return stringObj.replace(new RegExp(s1, "gm"), s2);
+};
 
 // get file name and directory name from absolute path
 let getFileMsg = function(absPath) {
@@ -170,15 +170,14 @@ let deleteFiles = function(absPaths, params, cb) {
 };
 
 //read message from file
-let readFromFile = function(absPath = "", params, cb) {
+let readFromFile = function(absPath = "", params = {}, cb) {
   if (fileExist(absPath)) {
-    let fileMsg = fs.readFileSync(absPath, "utf8");
     if (Object.is("Object", dataType(params))) {
       switch (params.type) {
         case "json":
           jsonfile.readFile(absPath, (err, obj) => {
-            if (err == undefined) {
-              cb(err, obj);
+            if(Object.is(dataType(cb),'Function')){
+              cb(err,obj);
             }
           });
           break;
@@ -186,8 +185,11 @@ let readFromFile = function(absPath = "", params, cb) {
           break;
       }
     } else {
-      cb(fileMsg);
+      console.log("readFromFile second params Only support Object".red);
     }
+
+  } else {
+    console.log("file is not exist".red);
   }
 };
 
@@ -201,7 +203,10 @@ let store2File = function(absPath = "", writeMsg, writeParams) {
   if (Object.is(dataType(writeParams), "Object") && writeParams.type) {
     switch (writeParams.type) {
       case "json":
+        console.log(absPath);
+        console.log(writeMsg);
         jsonfile.writeFile(absPath, writeMsg).then(res => {
+          console.log(2222)
           console.log(res);
         });
         break;
