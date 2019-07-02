@@ -118,7 +118,9 @@ let createFiles = async function(specifiedPaths, cb) {
   switch (dataType(specifiedPaths)) {
     case "String":
       await createFileCoreModule(specifiedPaths);
-      cb();
+      if(cb){
+        cb();
+      }
       break;
     case "Array":
       let status = specifiedPaths.forEach(async itemPath => {
@@ -195,19 +197,16 @@ let readFromFile = function(absPath = "", params = {}, cb) {
 
 //store to file,only support message write to single file
 // writeMsg not type undefined,null,NaN
-let store2File = function(absPath = "", writeMsg, writeParams) {
+let store2File = function(absolutePath = "", writeMsg, writeParams) {
   let dealStr = "";
-  if (!fileExist(absPath) && Object.is(writeParams.created, true)) {
-    fs.writeFileSync(absPath, JSON.stringify({}));
+  if (!fileExist(absolutePath) && Object.is(writeParams.created, true)) {
+    createFiles(absolutePath);
+    // fs.writeFileSync(absolutePath, JSON.stringify({}));
   }
   if (Object.is(dataType(writeParams), "Object") && writeParams.type) {
     switch (writeParams.type) {
       case "json":
-        console.log(absPath);
-        console.log(writeMsg);
-        jsonfile.writeFile(absPath, writeMsg).then(res => {
-          console.log(2222)
-          console.log(res);
+        jsonfile.writeFile(absolutePath, writeMsg).then(res => {
         });
         break;
       default:
@@ -216,22 +215,9 @@ let store2File = function(absPath = "", writeMsg, writeParams) {
   } else {
     dealStr = writeMsg.toString();
   }
-  /*  switch (dataType(writeMsg)) {
-         case "Object":
-         case "Array":
-             dealStr = JSON.stringify(writeMsg);
-             break;
-         case 'Function':
-             dealStr = writeMsg.toString();
-             break;
-         default:
-             dealStr = writeMsg;
-             break;
-     } */
-
   const buf = Buffer.from(dealStr, "utf8");
-  if (fileExist(absPath) && !fs.statSync(absPath).isDirectory()) {
-    let writeSteam = fs.createWriteStream(absPath);
+  if (fileExist(absolutePath) && !fs.statSync(absolutePath).isDirectory()) {
+    let writeSteam = fs.createWriteStream(absolutePath);
     writeSteam.write(buf, "utf8");
     writeSteam.end();
 
