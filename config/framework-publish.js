@@ -57,6 +57,12 @@ let readstoreMessage = function() {
   return userObj;
 };
 
+// 版本号格式解析
+let versionFormatParse = function() {};
+
+// 解析结果运算
+let versionComputed = function() {};
+
 // 检测入口
 let detectEntry = function() {
   try {
@@ -91,16 +97,20 @@ let detectEntry = function() {
 // 初始化版本号记录文件
 let initVersion = function() {
   let storeMessage = readstoreMessage();
-  store2File(
-    absPath(`file_storage/${storeMessage.name}`),
-    {
-      [storeMessage.vFiled]: ""
-    },
-    {
-      type: "json",
-      created: true
-    }
-  );
+  if (!fileExist(absPath(`file_storage/${storeMessage.name}`))) {
+    store2File(
+      absPath(`file_storage/${storeMessage.name}`),
+      {
+        [storeMessage.vFiled]: ""
+      },
+      {
+        type: "json",
+        created: true
+      }
+    );
+  } else {
+    console.log("文件已存在不进行初始化".red);
+  }
 };
 
 // 计算出默认配置
@@ -120,7 +130,10 @@ let computedSetting = function() {
           let version = "";
           if (Object.is(data.version, "")) {
             version = "0.0.1";
+          } else {
+            // formatParse
           }
+
           // write to file_storage
           let storeFileMessage = readstoreMessage();
           store2File(
@@ -134,7 +147,6 @@ let computedSetting = function() {
           );
         }
       );
-      // let version = userMsg.releaseConfig.version();
       break;
   }
   return userMsg;

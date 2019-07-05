@@ -37,7 +37,9 @@ module.exports = {
    **/
 
   releaseConfig: {
-    version: function(){},
+    version: function() {
+      return 2;
+    },
     type: ""
   },
 
