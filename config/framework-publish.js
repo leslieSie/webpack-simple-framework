@@ -38,15 +38,17 @@ let detectCore = function(data) {
   return returnStatus;
 };
 
+//
+
 // 读取最终生成的存储信息
 let readstoreMessage = function() {
   let userObj = JSON.parse(JSON.stringify(userMsg));
   if (Object.is(dataType(userObj.storageConfig), "Object")) {
-    if (!(userObj.name && userObj.name != "")) {
-      userObj.name = "setting.json";
+    if (!(userObj.storageConfig.name && userObj.storageConfig.name != "")) {
+      userObj.storageConfig.name = "setting.json";
     }
-    if (!(userObj.vFiled && userObj.vFiled != "")) {
-      userObj.vFiled = "version";
+    if (!(userObj.storageConfig.vFiled && userObj.storageConfig.vFiled != "")) {
+      userObj.storageConfig.vFiled = "version";
     }
   } else {
     userObj.storageConfig = {
@@ -57,11 +59,36 @@ let readstoreMessage = function() {
   return userObj;
 };
 
-// 版本号格式解析
-let versionFormatParse = function() {};
+function* generator(data) {
+  for (let i = 0; i < data.length; i++) {
+    yield data[i];
+  }
+}
 
 // 解析结果运算
-let versionComputed = function() {};
+let versionComputed = function(version) {
+  let splitVersion = version.split(".");
+  let iterator = generator(splitVersion);
+  let structure = iterator.next().value;
+  let feature = iterator.next().value;
+  let bug = iterator.next().value;
+/*   console.log(structure);
+  console.log(feature);
+  console.log(bug); */
+  switch (userMsg.releaseConfig.type) {
+    case "structure":
+      break;
+
+    case "feature":
+      break;
+
+    case "bug":
+    default:
+      // splitVersion.reverse()[0]=splitVersion.reverse()[0]
+      break;
+  }
+  return "0.0.1";
+};
 
 // 检测入口
 let detectEntry = function() {
@@ -97,11 +124,11 @@ let detectEntry = function() {
 // 初始化版本号记录文件
 let initVersion = function() {
   let storeMessage = readstoreMessage();
-  if (!fileExist(absPath(`file_storage/${storeMessage.name}`))) {
+  if (!fileExist(absPath(`file_storage/${storeMessage.storageConfig.name}`))) {
     store2File(
-      absPath(`file_storage/${storeMessage.name}`),
+      absPath(`file_storage/${storeMessage.storageConfig.name}`),
       {
-        [storeMessage.vFiled]: ""
+        [storeMessage.storageConfig.vFiled]: ""
       },
       {
         type: "json",
@@ -121,7 +148,7 @@ let computedSetting = function() {
       break;
     case "Function":
       readFromFile(
-        absPath(`file_storage/${storeMessage.name}`),
+        absPath(`file_storage/${storeMessage.storageConfig.name}`),
         {
           type: "json"
         },
@@ -132,14 +159,14 @@ let computedSetting = function() {
             version = "0.0.1";
           } else {
             // formatParse
+            version = versionComputed(data.version);
           }
 
           // write to file_storage
-          let storeFileMessage = readstoreMessage();
           store2File(
-            absPath(`file_storage/${storeFileMessage.name}`),
+            absPath(`file_storage/${storeMessage.storageConfig.name}`),
             {
-              [storeFileMessage.vFiled]: version
+              [storeMessage.storageConfig.vFiled]: version
             },
             {
               type: "json"
@@ -213,10 +240,10 @@ let publish = function() {
 
 // main
 (function() {
-  let isPass = detectEntry();
+  let isPass = detectEntry(); // 检测必填项已经填写
   if (isPass) {
-    initVersion();
-    computedSetting();
+    initVersion(); // 初始化settings.json文件
+    computedSetting(); // 动态计算settings.json中的版本号
   }
   // initVersion();
   // publish();
