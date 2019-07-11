@@ -62,7 +62,7 @@ let getFileMsg = function(absPath) {
   };
 };
 
-let createFileCoreModule = function(specifiedPath) {
+let createFileCoreModule = function(specifiedPath, cb) {
   return new Promise((resolve, reject) => {
     fs.stat(specifiedPath, (err, stats) => {
       if (err) {
@@ -96,6 +96,9 @@ let createFileCoreModule = function(specifiedPath) {
               console.log(err.red);
               return false;
             }
+            if (cb) {
+              cb();
+            }
           }
         );
       });
@@ -113,24 +116,19 @@ let createFileCoreModule = function(specifiedPath) {
 };
 
 // create file on specified path,If the path mean directory,will return error message.If the path whitch is exist file,return a message to tell developer the file is exist.otherwise,create files depend on specifiedPath param.create succes run cb params.by the way,fn must Function type.
-let createFiles = async function(specifiedPaths, cb) {
+let createFile = function(specifiedPath, cb) {
   let statistic = 0;
-  switch (dataType(specifiedPaths)) {
+  // let returnData;
+  switch (dataType(specifiedPath)) {
     case "String":
-      await createFileCoreModule(specifiedPaths);
-      if(cb){
-        cb();
-      }
+      createFileCoreModule(specifiedPath, cb);
       break;
-    case "Array":
+    /*  case "Array":
       let status = specifiedPaths.forEach(async itemPath => {
         await createFileCoreModule(itemPath);
         statistic++;
-        if (Object.is(statistic, specifiedPaths.length)) {
-          cb();
-        }
       });
-      break;
+      break; */
     case "Undefined":
       console.log("创建的路径不能为空!".red);
       break;
@@ -178,8 +176,8 @@ let readFromFile = function(absPath = "", params = {}, cb) {
       switch (params.type) {
         case "json":
           jsonfile.readFile(absPath, (err, obj) => {
-            if(Object.is(dataType(cb),'Function')){
-              cb(err,obj);
+            if (Object.is(dataType(cb), "Function")) {
+              cb(err, obj);
             }
           });
           break;
@@ -189,7 +187,6 @@ let readFromFile = function(absPath = "", params = {}, cb) {
     } else {
       console.log("readFromFile second params Only support Object".red);
     }
-
   } else {
     console.log("file is not exist".red);
   }
@@ -200,14 +197,13 @@ let readFromFile = function(absPath = "", params = {}, cb) {
 let store2File = function(absolutePath = "", writeMsg, writeParams) {
   let dealStr = "";
   if (!fileExist(absolutePath) && Object.is(writeParams.created, true)) {
-    createFiles(absolutePath);
+    createFile(absolutePath);
     // fs.writeFileSync(absolutePath, JSON.stringify({}));
   }
   if (Object.is(dataType(writeParams), "Object") && writeParams.type) {
     switch (writeParams.type) {
       case "json":
-        jsonfile.writeFile(absolutePath, writeMsg).then(res => {
-        });
+        jsonfile.writeFile(absolutePath, writeMsg, { spaces: 2 });
         break;
       default:
         break;
@@ -241,7 +237,7 @@ module.exports = {
   dirCreate,
   global_exclude,
   dataType,
-  createFiles,
+  createFile,
   deleteFiles,
   store2File,
   getFileMsg,

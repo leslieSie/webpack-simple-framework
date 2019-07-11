@@ -13,8 +13,7 @@ module.exports = {
    *  函数返回的值将作为当前发布的版本号和下一次传入的参数。
    *
    *  Object version的参数配置对象
-   *    version.auto 接受参数为布尔类型，默认值为true,表示的是自动计算版本号，当static生效的时候，autoIncrement无效
-   *    version.static 接受类型为String类型，无默认值，当static不等于undefined或者空字符串的时候，该值表示手动自定版本号
+   *    version.static 接受类型为String类型，无默认值，当static不等于undefined或者空字符串的时候，该值表示手动指定版本号
    *    version:autoIncrement 接受Number类型，默认值为1，当static生效的时候，autoIncrement无效
    *
    *  type支持三种类性质：structure,feature,bug
@@ -30,15 +29,15 @@ module.exports = {
    *  支持String类型的传入。默认值 type:'bug'
    *
    *  例如：当前版本号：0.0.1，version.autoIncrement:1
-   *    当type:structure时，version:1.0.0
-   *    当type:feature时:0.1.0
-   *    当type:bug时，version:0.0.2
+   *    当type:structure 时，version:1.0.0
+   *    当type:feature 时:0.1.0
+   *    当type:bug 时，version:0.0.2
    *
    **/
 
   releaseConfig: {
     version: function() {
-      return 2;
+      return 1;
     },
     type: ""
   },
